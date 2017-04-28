@@ -22,6 +22,7 @@ function cipher_form() {
         '#title' => 'Shift Value',
         '#type' => 'textfield',
         '#description' => t('Enter a shift value.'),
+        '#element_validate' => array('element_validate_integer_positive'),
         '#required' => TRUE,
     );
 
