@@ -38,6 +38,7 @@ function cipher_form() {
         '#title' => 'Phrase',
         '#type' => 'textfield',
         '#description' => t('Enter a phrase to encrypt.'),
+        '#element_validate' => array('element_validate_phrase'),
         '#required' => TRUE,
     );
 
@@ -59,6 +60,15 @@ function element_validate_direction($element) {
         form_error($element, t($element['#title']. ' must be either right or left.'));
     }
 }
+
+function element_validate_phrase($element) {
+    $phrase_input = $element['#value'];
+    if ( !preg_match('/^[a-z .,!?\-]+$/i',$phrase_input) ) {
+        form_error($element, t($element['#title']. ' does not allow for special characters or numbers.'));
+    }
+}
+
+
 
 function cipher_form_submit($form, &$form_state) {
     $form_state['redirect'] = 'cipher_success_page';
