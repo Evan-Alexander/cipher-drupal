@@ -30,6 +30,7 @@ function cipher_form() {
         '#title' => 'Direction',
         '#type' => 'textfield',
         '#description' => t('Enter a direction, i.e. right or left.'),
+        '#element_validate' => array('element_validate_direction'),
         '#required' => TRUE,
     );
 
@@ -46,6 +47,17 @@ function cipher_form() {
     );
 
     return $form;
+}
+
+function element_validate_direction($element) {
+    $direction = $element['#value'];
+    // To account for upper and lowercase entries
+    $direction_tolower = strtolower($direction);
+    $limit_entries = array('right', 'left');
+
+    if (!in_array($direction_tolower, $limit_entries)) {
+        form_error($element, t($element['#title']. ' must be either right or left.'));
+    }
 }
 
 function cipher_form_submit($form, &$form_state) {
