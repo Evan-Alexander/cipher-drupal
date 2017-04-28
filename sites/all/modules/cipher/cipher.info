@@ -1,0 +1,5 @@
+name = Cipher
+description = Shift Cipher custom module.
+package = JB's module
+core = 7.x
+files[] = cipher.module
