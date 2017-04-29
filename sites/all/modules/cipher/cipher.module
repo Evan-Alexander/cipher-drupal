@@ -86,7 +86,7 @@ function cipher_success() {
     $output = "";
     $phrase_len = strlen($phrase);
 
-    //encryption loop
+    //loop through phrase
     for($i=0;$i<$phrase_len;$i++) {
         //get the ascii value of the current character
         $cur_char = ord(substr($phrase,$i,1));
@@ -96,6 +96,12 @@ function cipher_success() {
             //move the position according to shift value and turn the position
             //back into the value of the ascii letter
             $cur_char = ($cur_char + $value)%26 + 97;
+        }
+
+        if (($cur_char > 96 && $cur_char < 123) && ($direction == 'left')) {
+            $cur_char = $cur_char - 97;
+            // Same as above, but taking the remainder of value - 26 to get left shift value.
+            $cur_char = ($cur_char + (26 - $value))%26 + 97;
         }
         // $output .= chr($cur_char);
         $output .= chr($cur_char);
